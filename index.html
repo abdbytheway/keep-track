@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Keep Track — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind-config.js"></script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex items-center justify-center px-gutter-mobile">
+
+  <div class="w-full max-w-md">
+    <div class="flex flex-col items-center gap-space-xs mb-space-xl">
+      <div class="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center shadow-[0_2px_4px_rgba(79,70,229,0.2)]">
+        <span class="material-symbols-outlined text-[28px]">payments</span>
+      </div>
+      <span class="font-headline-md text-headline-md text-on-surface tracking-tight">Keep Track</span>
+      <span class="font-body-md text-body-md text-on-surface-variant text-center">Track your monthly spending, effortlessly.</span>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-[0_1px_2px_0_rgba(15,23,42,0.04),0_1px_3px_0_rgba(79,70,229,0.02)] p-space-xl flex flex-col gap-space-lg">
+      <div class="flex flex-col gap-space-2xs text-center">
+        <h1 class="font-headline-sm text-headline-sm text-on-surface">Welcome back</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">Sign in with your Google account to continue.</p>
+      </div>
+
+      <button id="googleSignInBtn" type="button"
+        class="w-full flex items-center justify-center gap-space-xs h-12 rounded-xl bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md text-on-surface shadow-xs">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+          <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.71v2.26h2.9c1.7-1.57 2.7-3.87 2.7-6.61z"/>
+          <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.98v2.33A9 9 0 0 0 9 18z"/>
+          <path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.98A9 9 0 0 0 0 9c0 1.45.35 2.83.98 4.03l2.97-2.33z"/>
+          <path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .98 4.97l2.97 2.33C4.66 5.17 6.65 3.58 9 3.58z"/>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <p id="authError" class="hidden font-body-sm text-body-sm text-error text-center"></p>
+
+      <p class="font-body-sm text-body-sm text-on-surface-variant text-center">
+        Your data is private to your account. We keep a rolling 3 months of expense history.
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { signInWithGoogle, redirectIfSignedIn } from "./assets/js/auth.js";
+
+    redirectIfSignedIn("dashboard.html");
+
+    const btn = document.getElementById("googleSignInBtn");
+    const errorEl = document.getElementById("authError");
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      btn.classList.add("opacity-60");
+      errorEl.classList.add("hidden");
+      try {
+        await signInWithGoogle();
+        window.location.href = "dashboard.html";
+      } catch (err) {
+        errorEl.textContent = "Couldn't sign in: " + err.message;
+        errorEl.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove("opacity-60");
+      }
+    });
+  </script>
+</body>
+</html>
