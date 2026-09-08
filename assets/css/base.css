@@ -1,0 +1,8 @@
+html, body { margin: 0; padding: 0; }
+body { overscroll-behavior: none; }
+::-webkit-scrollbar { display: none; }
+[hidden] { display: none !important; }
+
+/* subtle fade-in for auth-gated content so the page doesn't flash unstyled */
+.app-ready { animation: fadeIn .15s ease-out; }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
