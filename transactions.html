@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Keep Track — Transactions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind-config.js"></script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased" data-page="transactions">
+
+<!-- ===== Sidebar ===== -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between py-space-lg px-space-md">
+  <div class="flex flex-col gap-space-md">
+    <div class="flex items-center gap-space-xs px-space-xs py-space-2xs">
+      <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-[18px]">payments</span>
+      </div>
+      <span class="font-title-md text-title-md tracking-tight text-on-surface">Keep Track</span>
+    </div>
+    <div class="px-space-xs">
+      <button data-open-add-expense type="button" class="w-full flex items-center justify-between px-space-md py-space-sm bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:bg-primary/90 transition-all shadow-[0_2px_4px_rgba(79,70,229,0.2)]">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Add Expense</span>
+        </div>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-space-2xs px-space-xs">
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="dashboard" href="dashboard.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+          <span class="font-body-md text-body-md">Dashboard</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="transactions" href="transactions.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+          <span class="font-body-md text-body-md">Transactions</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="categories" href="categories.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">category</span>
+          <span class="font-body-md text-body-md">Categories</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="budgets" href="budgets.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+          <span class="font-body-md text-body-md">Budgets</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="goals" href="goals.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">savings</span>
+          <span class="font-body-md text-body-md">Goals</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="reports" href="reports.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">bar_chart</span>
+          <span class="font-body-md text-body-md">Reports</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="settings" href="settings.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="font-body-md text-body-md">Settings</span>
+        </div>
+      </a>
+    </nav>
+  </div>
+  <div class="flex flex-col gap-space-sm px-space-xs">
+    <div class="flex items-center justify-between px-space-sm py-space-xs rounded-xl bg-surface-container-low text-on-surface-variant">
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[18px]">light_mode</span>
+        <span class="font-label-md text-label-md">Theme</span>
+      </div>
+      <div class="flex items-center bg-surface-container-lowest p-0.5 rounded-lg">
+        <button data-theme-btn="light" class="px-2 py-0.5 rounded-md font-label-sm text-label-sm" type="button" title="Light mode">
+          <span class="material-symbols-outlined text-[14px]">light_mode</span>
+        </button>
+        <button data-theme-btn="dark" class="px-2 py-0.5 rounded-md font-label-sm text-label-sm" type="button" title="Dark mode">
+          <span class="material-symbols-outlined text-[14px]">dark_mode</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+      <div class="flex items-center gap-space-xs overflow-hidden">
+        <div data-user-avatar class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md text-label-md shrink-0 font-semibold">–</div>
+        <div class="flex flex-col truncate">
+          <span data-user-name class="font-title-md text-body-md text-on-surface truncate font-semibold">–</span>
+          <span data-user-email class="font-body-sm text-body-sm text-on-surface-variant truncate">–</span>
+        </div>
+      </div>
+      <button data-sign-out aria-label="Sign out" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded-lg hover:bg-surface-container" type="button">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<div class="pl-64">
+  <header class="fixed top-0 left-64 right-0 z-40 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg">
+      <div class="flex items-center gap-space-md">
+        <div class="relative flex items-center">
+          <span class="material-symbols-outlined absolute left-3 text-[18px] text-on-surface-variant">search</span>
+          <input id="globalSearchInput" class="w-80 h-10 pl-9 pr-space-md rounded-xl bg-surface-container-lowest border-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant shadow-[0_1px_2px_rgba(15,23,42,0.04)] focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="Search transactions..." type="text" />
+        </div>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md px-space-sm py-space-xs rounded-lg bg-surface-container-low">
+          <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+          <span data-header-month>–</span>
+        </div>
+        <div class="relative flex items-center">
+          <button class="relative p-space-xs rounded-xl hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+            <span class="material-symbols-outlined text-[22px]">notifications</span>
+          </button>
+        </div>
+        <button data-open-add-expense class="flex items-center gap-space-xs px-space-md py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-[0_2px_4px_rgba(79,70,229,0.2)]" type="button">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Add</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-16 bg-surface px-gutter-desktop py-space-lg">
+    <div class="flex flex-col w-full gap-space-xl">
+
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-space-xs mb-1">
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase tracking-wider">Expense Ledger</span>
+          </div>
+          <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Transactions</h1>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Every expense you've logged, kept for a rolling 3 months.</p>
+        </div>
+        <div class="flex items-center flex-wrap gap-space-sm">
+          <div class="flex items-center bg-surface-container-lowest shadow-sm rounded-xl p-1 gap-1">
+            <button id="prevMonthBtn" aria-label="Previous Month" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <div class="flex items-center gap-1.5 px-3 py-1 font-title-md text-title-md text-on-surface select-none">
+              <span class="material-symbols-outlined text-primary text-[18px]">event</span>
+              <span id="monthLabel">–</span>
+            </div>
+            <button id="nextMonthBtn" aria-label="Next Month" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+          <button id="exportPdfBtn" class="flex items-center gap-space-xs px-space-md py-2.5 bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md rounded-xl shadow-sm transition-all" type="button">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
+            <span>Export PDF</span>
+          </button>
+          <button data-open-add-expense class="flex items-center gap-space-xs px-space-lg py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-xl shadow-md transition-all" type="button">
+            <span class="material-symbols-outlined text-[20px]">add_circle</span>
+            <span>Add Expense</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Month summary strip -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+        <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-xs">
+          <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total This Month</span>
+          <span id="sumTotal" class="font-financial-mono-lg text-financial-mono-lg text-on-surface">$0.00</span>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-xs">
+          <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Transactions</span>
+          <span id="sumCount" class="font-financial-mono-lg text-financial-mono-lg text-on-surface">0</span>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-xs">
+          <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Average</span>
+          <span id="sumAvg" class="font-financial-mono-lg text-financial-mono-lg text-on-surface">$0.00</span>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+        <div class="p-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+          <div class="flex flex-col">
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">Expense Log</h2>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">All expenses for the selected month</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-space-xs">
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3 text-[18px] text-on-surface-variant">search</span>
+              <input id="searchInput" class="w-64 h-9 pl-9 pr-3 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container" placeholder="Search merchant, notes..." type="text" />
+            </div>
+            <select id="categoryFilter" class="h-9 px-3 rounded-xl bg-surface-container-low font-label-md text-label-md text-on-surface focus:outline-none cursor-pointer">
+              <option value="">All Categories</option>
+            </select>
+            <select id="sortSelect" class="h-9 px-3 rounded-xl bg-surface-container-low font-label-md text-label-md text-on-surface focus:outline-none cursor-pointer">
+              <option value="date-desc">Sort: Newest</option>
+              <option value="date-asc">Sort: Oldest</option>
+              <option value="amount-desc">Sort: Highest Amount</option>
+              <option value="amount-asc">Sort: Lowest Amount</option>
+            </select>
+          </div>
+        </div>
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                <th class="py-3 px-space-md">Merchant / Description</th>
+                <th class="py-3 px-space-md">Category</th>
+                <th class="py-3 px-space-md">Date</th>
+                <th class="py-3 px-space-md text-right">Amount</th>
+                <th class="py-3 px-space-md text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="font-body-md text-body-md text-on-surface"></tbody>
+          </table>
+          <p id="tableEmpty" class="hidden p-space-lg text-center font-body-md text-body-md text-on-surface-variant">No expenses match your filters for this month.</p>
+        </div>
+        <div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+          <span id="paginationSummary">Showing 0 of 0 entries</span>
+          <div class="flex items-center gap-space-xs self-end sm:self-auto">
+            <button id="prevPageBtn" class="px-3 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors disabled:opacity-50" type="button">Previous</button>
+            <span id="pageLabel" class="px-2 font-label-sm text-label-sm font-bold text-on-surface">Page 1 of 1</span>
+            <button id="nextPageBtn" class="px-3 py-1.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-colors disabled:opacity-50" type="button">Next</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== Add Expense Modal (same markup/behavior as dashboard.html) ===== -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center p-space-md sm:p-space-lg bg-inverse-surface/40 backdrop-blur-md overflow-y-auto" id="addExpenseModal">
+  <div class="w-full max-w-2xl bg-surface-container-lowest rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.22)] my-auto flex flex-col max-h-[92vh] overflow-hidden">
+    <div class="flex items-start justify-between px-space-xl pt-space-lg pb-space-md shrink-0">
+      <div class="flex flex-col gap-space-2xs">
+        <div class="flex items-center gap-space-xs">
+          <div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm">
+            <span class="material-symbols-outlined text-[22px]">receipt_long</span>
+          </div>
+          <h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Add Expense</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant">Log a purchase, bill, or any other outgoing payment.</p>
+      </div>
+      <button data-close-modal class="p-space-2xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <form id="addExpenseForm" class="flex-1 overflow-y-auto px-space-xl py-space-md flex flex-col gap-space-xl">
+      <div class="flex flex-col gap-space-sm">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">1. Category</span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs" id="categoryGrid"></div>
+      </div>
+
+      <div class="flex flex-col gap-space-md bg-surface-container-low/60 p-space-lg rounded-2xl">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">2. Details</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseAmount">Amount</label>
+            <div class="flex items-center h-12 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="font-financial-mono-lg text-financial-mono-lg text-on-surface-variant pr-space-2xs">$</span>
+              <input class="w-full bg-transparent font-financial-mono-lg text-financial-mono-lg text-on-surface focus:outline-none tracking-tight font-bold" id="expenseAmount" type="number" min="0.01" step="0.01" placeholder="0.00" required />
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseDate">Date</label>
+            <div class="flex items-center h-12 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-variant mr-space-xs">event</span>
+              <input class="w-full bg-transparent font-title-md text-title-md text-on-surface focus:outline-none" id="expenseDate" type="date" required />
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseMerchant">Merchant / Payee</label>
+            <div class="flex items-center h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[18px] text-on-surface-variant mr-space-xs">storefront</span>
+              <input class="w-full bg-transparent font-body-md text-body-md text-on-surface focus:outline-none" id="expenseMerchant" type="text" placeholder="e.g. Whole Foods Market" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseNotes">Notes</label>
+            <div class="flex items-center h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[18px] text-on-surface-variant mr-space-xs">notes</span>
+              <input class="w-full bg-transparent font-body-md text-body-md text-on-surface focus:outline-none" id="expenseNotes" type="text" placeholder="Optional" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-md">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">3. Options</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <span class="font-label-md text-label-md text-on-surface">Settlement Status</span>
+            <div class="flex items-center bg-surface-container-low p-1 rounded-xl">
+              <button data-status-btn="paid" type="button" class="flex-1 flex items-center justify-center gap-space-2xs px-space-sm py-2 rounded-lg font-label-md text-label-md transition-all">
+                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                <span>Paid</span>
+              </button>
+              <button data-status-btn="pending" type="button" class="flex-1 flex items-center justify-center gap-space-2xs px-space-sm py-2 rounded-lg font-label-md text-label-md transition-all">
+                <span class="material-symbols-outlined text-[16px]">schedule</span>
+                <span>Pending</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <span class="font-label-md text-label-md text-on-surface">Recurring</span>
+            <label class="flex items-center justify-between h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs cursor-pointer">
+              <span class="flex items-center gap-space-xs font-body-md text-body-md text-on-surface-variant">
+                <span class="material-symbols-outlined text-[18px]">autorenew</span>
+                Repeats monthly
+              </span>
+              <input id="expenseRecurring" type="checkbox" class="sr-only peer" />
+              <span class="relative w-9 h-5 bg-outline-variant rounded-full peer-checked:bg-primary transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-4"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p id="addExpenseError" class="hidden font-body-sm text-body-sm text-error"></p>
+    </form>
+
+    <div class="flex items-center justify-end gap-space-sm px-space-xl py-space-md shrink-0">
+      <button data-close-modal class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+      <button data-submit-expense form="addExpenseForm" class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-all shadow-[0_2px_4px_rgba(79,70,229,0.2)]" type="submit">
+        <span class="material-symbols-outlined text-[18px]">save</span>
+        <span>Save Expense</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
+<script type="module">
+  import { requireAuth } from "./assets/js/auth.js";
+  import { initShell } from "./assets/js/app-shell.js";
+  import { initAddExpenseModal } from "./assets/js/modal.js";
+  import { subscribeMonth, deleteTransaction, computeSummary } from "./assets/js/db.js";
+  import { CATEGORIES, getCategory } from "./assets/js/categories.js";
+  import { formatCurrency, formatDate, monthKeyOf, monthLabelOf, shiftMonthKey, debounce } from "./assets/js/util.js";
+  import { exportMonthPdf } from "./assets/js/pdf-export.js";
+
+  let currentMonthKey = monthKeyOf(new Date());
+  let unsubMonth = null;
+  let currentUid = null;
+  let currentUserEmail = "";
+  let allRows = [];
+  let page = 1;
+  const PAGE_SIZE = 10;
+
+  const categoryFilter = document.getElementById("categoryFilter");
+  CATEGORIES.forEach((c) => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.textContent = c.label;
+    categoryFilter.appendChild(opt);
+  });
+
+  // A header search (?q=) can deep-link in from another page — prefill the
+  // in-page search box with it before the first render.
+  const qParam = new URLSearchParams(window.location.search).get("q");
+  if (qParam) document.getElementById("searchInput").value = qParam;
+
+  requireAuth((user) => {
+    currentUid = user.uid;
+    currentUserEmail = user.email || "";
+    initShell(user);
+    initAddExpenseModal(user.uid, { onAdded: () => {} });
+    document.body.classList.add("app-ready");
+    loadMonth(currentMonthKey);
+  });
+
+  document.getElementById("prevMonthBtn").addEventListener("click", () => {
+    currentMonthKey = shiftMonthKey(currentMonthKey, -1);
+    loadMonth(currentMonthKey);
+  });
+  document.getElementById("nextMonthBtn").addEventListener("click", () => {
+    currentMonthKey = shiftMonthKey(currentMonthKey, 1);
+    loadMonth(currentMonthKey);
+  });
+  document.getElementById("exportPdfBtn").addEventListener("click", () => {
+    exportMonthPdf({
+      monthLabel: monthLabelOf(currentMonthKey),
+      userEmail: currentUserEmail,
+      transactions: applyFiltersSorted(),
+    });
+  });
+  document.getElementById("searchInput").addEventListener(
+    "input",
+    debounce(() => {
+      page = 1;
+      renderTable();
+    }, 200)
+  );
+  categoryFilter.addEventListener("change", () => {
+    page = 1;
+    renderTable();
+  });
+  document.getElementById("sortSelect").addEventListener("change", () => {
+    page = 1;
+    renderTable();
+  });
+  document.getElementById("prevPageBtn").addEventListener("click", () => {
+    if (page > 1) {
+      page--;
+      renderTable();
+    }
+  });
+  document.getElementById("nextPageBtn").addEventListener("click", () => {
+    page++;
+    renderTable();
+  });
+
+  function loadMonth(monthKey) {
+    document.getElementById("monthLabel").textContent = monthLabelOf(monthKey);
+    page = 1;
+    if (unsubMonth) unsubMonth();
+    unsubMonth = subscribeMonth(currentUid, monthKey, (rows) => {
+      allRows = rows;
+      const s = computeSummary(rows);
+      document.getElementById("sumTotal").textContent = formatCurrency(s.total);
+      document.getElementById("sumCount").textContent = s.count;
+      document.getElementById("sumAvg").textContent = formatCurrency(s.avg);
+      renderTable();
+    });
+  }
+
+  function applyFiltersSorted() {
+    const search = document.getElementById("searchInput").value.trim().toLowerCase();
+    const cat = categoryFilter.value;
+    const sort = document.getElementById("sortSelect").value;
+
+    let rows = allRows.filter((t) => {
+      if (cat && t.category !== cat) return false;
+      if (search) {
+        const hay = `${t.merchant || ""} ${t.note || ""}`.toLowerCase();
+        if (!hay.includes(search)) return false;
+      }
+      return true;
+    });
+
+    rows = rows.slice().sort((a, b) => {
+      if (sort === "date-asc") return a.date.localeCompare(b.date);
+      if (sort === "date-desc") return b.date.localeCompare(a.date);
+      if (sort === "amount-asc") return a.amount - b.amount;
+      if (sort === "amount-desc") return b.amount - a.amount;
+      return 0;
+    });
+    return rows;
+  }
+
+  function renderTable() {
+    const rows = applyFiltersSorted();
+    const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+    page = Math.min(page, totalPages);
+    const start = (page - 1) * PAGE_SIZE;
+    const pageRows = rows.slice(start, start + PAGE_SIZE);
+
+    const body = document.getElementById("tableBody");
+    const empty = document.getElementById("tableEmpty");
+
+    if (!pageRows.length) {
+      body.innerHTML = "";
+      empty.classList.remove("hidden");
+    } else {
+      empty.classList.add("hidden");
+      body.innerHTML = pageRows
+        .map((t) => {
+          const cat = getCategory(t.category);
+          return `
+          <tr class="hover:bg-surface-container-low/60 transition-colors">
+            <td class="py-3.5 px-space-md">
+              <div class="flex items-center gap-space-xs">
+                <div class="w-8 h-8 rounded-lg ${cat.chipBg} ${cat.chipText} flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[16px]">${cat.icon}</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-title-md text-title-md text-on-surface flex items-center gap-1">
+                    ${escapeHtml(t.merchant || cat.label)}
+                    ${t.recurring ? '<span class="material-symbols-outlined text-[14px] text-on-surface-variant" title="Recurring">autorenew</span>' : ""}
+                  </span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">${escapeHtml(t.note || "")}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-space-md">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">${cat.label}</span>
+                ${
+                  t.status === "pending"
+                    ? '<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm">Pending</span>'
+                    : ""
+                }
+              </div>
+            </td>
+            <td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">${formatDate(t.date)}</td>
+            <td class="py-3.5 px-space-md text-right font-financial-mono-md text-financial-mono-md text-on-surface font-bold">-${formatCurrency(t.amount)}</td>
+            <td class="py-3.5 px-space-md text-right">
+              <div class="flex items-center justify-end gap-1 text-on-surface-variant">
+                <button data-delete-id="${t.id}" aria-label="Delete Record" class="p-1 hover:text-error transition-colors" type="button">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>`;
+        })
+        .join("");
+
+      body.querySelectorAll("[data-delete-id]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          if (!confirm("Delete this expense?")) return;
+          await deleteTransaction(currentUid, btn.dataset.deleteId);
+        });
+      });
+    }
+
+    document.getElementById("paginationSummary").textContent =
+      rows.length === 0
+        ? "Showing 0 of 0 entries"
+        : `Showing ${start + 1} to ${Math.min(start + PAGE_SIZE, rows.length)} of ${rows.length} entries`;
+    document.getElementById("pageLabel").textContent = `Page ${page} of ${totalPages}`;
+    document.getElementById("prevPageBtn").disabled = page <= 1;
+    document.getElementById("nextPageBtn").disabled = page >= totalPages;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+</body>
+</html>

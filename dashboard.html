@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Keep Track — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind-config.js"></script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased" data-page="dashboard">
+
+<!-- ===== Sidebar ===== -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between py-space-lg px-space-md">
+  <div class="flex flex-col gap-space-md">
+    <div class="flex items-center gap-space-xs px-space-xs py-space-2xs">
+      <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
+        <span class="material-symbols-outlined text-[18px]">payments</span>
+      </div>
+      <span class="font-title-md text-title-md tracking-tight text-on-surface">Keep Track</span>
+    </div>
+    <div class="px-space-xs">
+      <button data-open-add-expense type="button" class="w-full flex items-center justify-between px-space-md py-space-sm bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:bg-primary/90 transition-all shadow-[0_2px_4px_rgba(79,70,229,0.2)]">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Add Expense</span>
+        </div>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-space-2xs px-space-xs">
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="dashboard" href="dashboard.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">grid_view</span>
+          <span class="font-body-md text-body-md">Dashboard</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="transactions" href="transactions.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+          <span class="font-body-md text-body-md">Transactions</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="categories" href="categories.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">category</span>
+          <span class="font-body-md text-body-md">Categories</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="budgets" href="budgets.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+          <span class="font-body-md text-body-md">Budgets</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="goals" href="goals.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">savings</span>
+          <span class="font-body-md text-body-md">Goals</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="reports" href="reports.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">bar_chart</span>
+          <span class="font-body-md text-body-md">Reports</span>
+        </div>
+      </a>
+      <a class="flex items-center justify-between px-space-sm py-space-xs rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="settings" href="settings.html">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          <span class="font-body-md text-body-md">Settings</span>
+        </div>
+      </a>
+    </nav>
+  </div>
+  <div class="flex flex-col gap-space-sm px-space-xs">
+    <div class="flex items-center justify-between px-space-sm py-space-xs rounded-xl bg-surface-container-low text-on-surface-variant">
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-[18px]">light_mode</span>
+        <span class="font-label-md text-label-md">Theme</span>
+      </div>
+      <div class="flex items-center bg-surface-container-lowest p-0.5 rounded-lg">
+        <button data-theme-btn="light" class="px-2 py-0.5 rounded-md font-label-sm text-label-sm" type="button" title="Light mode">
+          <span class="material-symbols-outlined text-[14px]">light_mode</span>
+        </button>
+        <button data-theme-btn="dark" class="px-2 py-0.5 rounded-md font-label-sm text-label-sm" type="button" title="Dark mode">
+          <span class="material-symbols-outlined text-[14px]">dark_mode</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between p-space-xs rounded-xl hover:bg-surface-container-low transition-colors">
+      <div class="flex items-center gap-space-xs overflow-hidden">
+        <div data-user-avatar class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md text-label-md shrink-0 font-semibold">–</div>
+        <div class="flex flex-col truncate">
+          <span data-user-name class="font-title-md text-body-md text-on-surface truncate font-semibold">–</span>
+          <span data-user-email class="font-body-sm text-body-sm text-on-surface-variant truncate">–</span>
+        </div>
+      </div>
+      <button data-sign-out aria-label="Sign out" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded-lg hover:bg-surface-container" type="button">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<div class="pl-64">
+  <!-- ===== Header ===== -->
+  <header class="fixed top-0 left-64 right-0 z-40 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg">
+      <div class="flex items-center gap-space-md">
+        <div class="relative flex items-center">
+          <span class="material-symbols-outlined absolute left-3 text-[18px] text-on-surface-variant">search</span>
+          <input id="globalSearchInput" class="w-80 h-10 pl-9 pr-space-md rounded-xl bg-surface-container-lowest border-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant shadow-[0_1px_2px_rgba(15,23,42,0.04)] focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="Search transactions..." type="text" />
+        </div>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md px-space-sm py-space-xs rounded-lg bg-surface-container-low">
+          <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+          <span data-header-month>–</span>
+        </div>
+        <div class="relative flex items-center">
+          <button class="relative p-space-xs rounded-xl hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+            <span class="material-symbols-outlined text-[22px]">notifications</span>
+          </button>
+        </div>
+        <button data-open-add-expense class="flex items-center gap-space-xs px-space-md py-2 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-[0_2px_4px_rgba(79,70,229,0.2)]" type="button">
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          <span>Add</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-16 bg-surface px-gutter-desktop py-space-lg">
+    <div class="flex flex-col w-full gap-space-xl">
+
+      <!-- Page header + month control -->
+      <section class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md w-full">
+        <div>
+          <div class="flex items-center gap-space-xs mb-1">
+            <span class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Dashboard</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">Here's a look at your spending for the month.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-space-xs sm:gap-space-sm">
+          <div class="flex items-center bg-surface-container-low rounded-xl p-1 shadow-sm">
+            <button id="prevMonthBtn" aria-label="Previous month" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-lowest transition-all" type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <div class="flex items-center gap-1.5 px-space-xs py-1">
+              <span class="material-symbols-outlined text-primary text-[18px]">event</span>
+              <span id="monthLabel" class="font-title-md text-title-md text-on-surface select-none">–</span>
+            </div>
+            <button id="nextMonthBtn" aria-label="Next month" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-lowest transition-all" type="button">
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+          <button id="exportPdfBtn" class="h-10 px-space-sm flex items-center gap-space-2xs bg-surface-container-lowest hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface rounded-xl font-label-md text-label-md transition-all shadow-sm" type="button">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            <span>Export PDF</span>
+          </button>
+          <button data-open-add-expense class="h-10 px-space-md flex items-center gap-space-2xs bg-primary hover:bg-primary-container text-on-primary rounded-xl font-label-md text-label-md transition-all shadow-sm" type="button">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            <span>Add Expense</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Metric cards -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md w-full">
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="flex items-start justify-between mb-space-md">
+            <div>
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Spent</span>
+              <div id="statTotal" class="mt-1 font-financial-mono-lg text-financial-mono-lg text-on-surface">$0.00</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-error-container/40 flex items-center justify-center text-error shrink-0">
+              <span class="material-symbols-outlined text-[24px]">arrow_upward</span>
+            </div>
+          </div>
+          <span id="statTotalSub" class="font-body-sm text-body-sm text-on-surface-variant">No transactions yet</span>
+        </div>
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="flex items-start justify-between mb-space-md">
+            <div>
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Transactions</span>
+              <div id="statCount" class="mt-1 font-financial-mono-lg text-financial-mono-lg text-on-surface">0</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[24px]">receipt_long</span>
+            </div>
+          </div>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">Logged this month</span>
+        </div>
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="flex items-start justify-between mb-space-md">
+            <div>
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Avg / Transaction</span>
+              <div id="statAvg" class="mt-1 font-financial-mono-lg text-financial-mono-lg text-on-surface">$0.00</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary shrink-0">
+              <span class="material-symbols-outlined text-[24px]">insights</span>
+            </div>
+          </div>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">Per logged expense</span>
+        </div>
+        <div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="flex items-start justify-between mb-space-md">
+            <div>
+              <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Top Category</span>
+              <div id="statTopCategory" class="mt-1 font-headline-sm text-headline-sm text-on-surface">–</div>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary shrink-0">
+              <span class="material-symbols-outlined text-[24px]">category</span>
+            </div>
+          </div>
+          <span id="statTopCategoryAmount" class="font-body-sm text-body-sm text-on-surface-variant">$0.00</span>
+        </div>
+      </section>
+
+      <!-- Trend + Category breakdown -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg w-full">
+        <div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="mb-space-lg">
+              <h2 class="font-headline-sm text-headline-sm text-on-surface">Spending Trend</h2>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">Your last 3 months of retained expense history</p>
+            </div>
+            <div id="trendChart" class="h-56 flex items-end justify-between gap-4 px-2 sm:px-6 relative">
+              <div class="absolute inset-x-0 top-0 h-px bg-surface-container-high"></div>
+              <div class="absolute inset-x-0 top-1/4 h-px bg-surface-container-high"></div>
+              <div class="absolute inset-x-0 top-2/4 h-px bg-surface-container-high"></div>
+              <div class="absolute inset-x-0 top-3/4 h-px bg-surface-container-high"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-space-md">
+              <div>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface">Spending by Category</h2>
+                <p id="categorySubtitle" class="font-body-sm text-body-sm text-on-surface-variant">$0.00 spent this month</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-space-lg my-space-md bg-surface-container-low p-space-md rounded-xl">
+              <div id="donutChart" class="relative w-28 h-28 shrink-0 rounded-full" style="background: conic-gradient(#e5eeff 0deg 360deg);">
+                <div class="absolute inset-2 rounded-full bg-surface-container-low flex flex-col items-center justify-center text-center">
+                  <span class="text-[11px] font-label-sm text-on-surface-variant uppercase">Total</span>
+                  <span id="donutCenter" class="font-title-md text-title-md text-on-surface font-bold">$0</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-1 text-on-surface">
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Top Category</span>
+                <div id="donutTopLabel" class="font-title-md text-title-md font-bold">–</div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">of this month's spending</p>
+              </div>
+            </div>
+            <div id="categoryList" class="flex flex-col gap-space-sm pt-space-xs">
+              <p class="font-body-sm text-body-sm text-on-surface-variant">No expenses logged yet this month.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent activity -->
+      <section class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col mb-space-lg">
+        <div class="p-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+          <div>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Latest expenses logged this month</p>
+          </div>
+          <a href="transactions.html" class="font-label-md text-label-md text-primary hover:underline">View all transactions →</a>
+        </div>
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                <th class="py-3 px-space-md">Category / Description</th>
+                <th class="py-3 px-space-md">Date</th>
+                <th class="py-3 px-space-md text-right">Amount</th>
+                <th class="py-3 px-space-md text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recentActivityBody" class="font-body-md text-body-md text-on-surface"></tbody>
+          </table>
+          <p id="recentActivityEmpty" class="hidden p-space-lg text-center font-body-md text-body-md text-on-surface-variant">No expenses recorded for this month yet — add your first one above.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===== Add Expense Modal ===== -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center p-space-md sm:p-space-lg bg-inverse-surface/40 backdrop-blur-md overflow-y-auto" id="addExpenseModal">
+  <div class="w-full max-w-2xl bg-surface-container-lowest rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.22)] my-auto flex flex-col max-h-[92vh] overflow-hidden">
+    <div class="flex items-start justify-between px-space-xl pt-space-lg pb-space-md shrink-0">
+      <div class="flex flex-col gap-space-2xs">
+        <div class="flex items-center gap-space-xs">
+          <div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm">
+            <span class="material-symbols-outlined text-[22px]">receipt_long</span>
+          </div>
+          <h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Add Expense</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant">Log a purchase, bill, or any other outgoing payment.</p>
+      </div>
+      <button data-close-modal class="p-space-2xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <form id="addExpenseForm" class="flex-1 overflow-y-auto px-space-xl py-space-md flex flex-col gap-space-xl">
+      <div class="flex flex-col gap-space-sm">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">1. Category</span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs" id="categoryGrid"></div>
+      </div>
+
+      <div class="flex flex-col gap-space-md bg-surface-container-low/60 p-space-lg rounded-2xl">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">2. Details</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseAmount">Amount</label>
+            <div class="flex items-center h-12 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="font-financial-mono-lg text-financial-mono-lg text-on-surface-variant pr-space-2xs">$</span>
+              <input class="w-full bg-transparent font-financial-mono-lg text-financial-mono-lg text-on-surface focus:outline-none tracking-tight font-bold" id="expenseAmount" type="number" min="0.01" step="0.01" placeholder="0.00" required />
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseDate">Date</label>
+            <div class="flex items-center h-12 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-variant mr-space-xs">event</span>
+              <input class="w-full bg-transparent font-title-md text-title-md text-on-surface focus:outline-none" id="expenseDate" type="date" required />
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseMerchant">Merchant / Payee</label>
+            <div class="flex items-center h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[18px] text-on-surface-variant mr-space-xs">storefront</span>
+              <input class="w-full bg-transparent font-body-md text-body-md text-on-surface focus:outline-none" id="expenseMerchant" type="text" placeholder="e.g. Whole Foods Market" />
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <label class="font-label-md text-label-md text-on-surface" for="expenseNotes">Notes</label>
+            <div class="flex items-center h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs focus-within:ring-2 focus-within:ring-primary-container">
+              <span class="material-symbols-outlined text-[18px] text-on-surface-variant mr-space-xs">notes</span>
+              <input class="w-full bg-transparent font-body-md text-body-md text-on-surface focus:outline-none" id="expenseNotes" type="text" placeholder="Optional" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-md">
+        <span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">3. Options</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div class="flex flex-col gap-space-2xs">
+            <span class="font-label-md text-label-md text-on-surface">Settlement Status</span>
+            <div class="flex items-center bg-surface-container-low p-1 rounded-xl">
+              <button data-status-btn="paid" type="button" class="flex-1 flex items-center justify-center gap-space-2xs px-space-sm py-2 rounded-lg font-label-md text-label-md transition-all">
+                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                <span>Paid</span>
+              </button>
+              <button data-status-btn="pending" type="button" class="flex-1 flex items-center justify-center gap-space-2xs px-space-sm py-2 rounded-lg font-label-md text-label-md transition-all">
+                <span class="material-symbols-outlined text-[16px]">schedule</span>
+                <span>Pending</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-2xs">
+            <span class="font-label-md text-label-md text-on-surface">Recurring</span>
+            <label class="flex items-center justify-between h-11 bg-surface-container-lowest rounded-xl px-space-sm shadow-xs cursor-pointer">
+              <span class="flex items-center gap-space-xs font-body-md text-body-md text-on-surface-variant">
+                <span class="material-symbols-outlined text-[18px]">autorenew</span>
+                Repeats monthly
+              </span>
+              <input id="expenseRecurring" type="checkbox" class="sr-only peer" />
+              <span class="relative w-9 h-5 bg-outline-variant rounded-full peer-checked:bg-primary transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-4"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p id="addExpenseError" class="hidden font-body-sm text-body-sm text-error"></p>
+    </form>
+
+    <div class="flex items-center justify-end gap-space-sm px-space-xl py-space-md shrink-0">
+      <button data-close-modal class="px-space-md py-2.5 rounded-xl font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">Cancel</button>
+      <button data-submit-expense form="addExpenseForm" class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-all shadow-[0_2px_4px_rgba(79,70,229,0.2)]" type="submit">
+        <span class="material-symbols-outlined text-[18px]">save</span>
+        <span>Save Expense</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
+<script type="module">
+  import { requireAuth } from "./assets/js/auth.js";
+  import { initShell } from "./assets/js/app-shell.js";
+  import { initAddExpenseModal } from "./assets/js/modal.js";
+  import { subscribeMonth, subscribeRetentionWindow, deleteTransaction, computeSummary } from "./assets/js/db.js";
+  import { getCategory } from "./assets/js/categories.js";
+  import { formatCurrency, formatDateShort, monthKeyOf, monthLabelOf, shiftMonthKey } from "./assets/js/util.js";
+  import { exportMonthPdf } from "./assets/js/pdf-export.js";
+
+  let currentMonthKey = monthKeyOf(new Date());
+  let unsubMonth = null;
+  let unsubTrend = null;
+  let currentRows = [];
+  let currentUid = null;
+  let currentUserEmail = "";
+
+  const DONUT_COLORS = ["#4f46e5", "#6b38d4", "#005338", "#dce9ff", "#8455ef", "#ba1a1a", "#85f8c4", "#777587"];
+
+  requireAuth((user) => {
+    currentUid = user.uid;
+    currentUserEmail = user.email || "";
+    initShell(user);
+    initAddExpenseModal(user.uid, { onAdded: () => {} });
+    document.body.classList.add("app-ready");
+    loadMonth(currentMonthKey);
+    loadTrend();
+  });
+
+  document.getElementById("prevMonthBtn").addEventListener("click", () => {
+    currentMonthKey = shiftMonthKey(currentMonthKey, -1);
+    loadMonth(currentMonthKey);
+  });
+  document.getElementById("nextMonthBtn").addEventListener("click", () => {
+    currentMonthKey = shiftMonthKey(currentMonthKey, 1);
+    loadMonth(currentMonthKey);
+  });
+  document.getElementById("exportPdfBtn").addEventListener("click", () => {
+    exportMonthPdf({
+      monthLabel: monthLabelOf(currentMonthKey),
+      userEmail: currentUserEmail,
+      transactions: currentRows,
+    });
+  });
+
+  function loadMonth(monthKey) {
+    document.getElementById("monthLabel").textContent = monthLabelOf(monthKey);
+    if (unsubMonth) unsubMonth();
+    unsubMonth = subscribeMonth(currentUid, monthKey, (rows) => {
+      currentRows = rows;
+      renderStats(rows);
+      renderCategoryBreakdown(rows);
+      renderRecentActivity(rows);
+    });
+  }
+
+  function loadTrend() {
+    if (unsubTrend) unsubTrend();
+    unsubTrend = subscribeRetentionWindow(currentUid, (rows, monthKeys) => {
+      renderTrend(rows, monthKeys);
+    });
+  }
+
+  function renderStats(rows) {
+    const s = computeSummary(rows);
+    document.getElementById("statTotal").textContent = formatCurrency(s.total);
+    document.getElementById("statTotalSub").textContent = s.count ? `${s.count} transaction(s) logged` : "No transactions yet";
+    document.getElementById("statCount").textContent = s.count;
+    document.getElementById("statAvg").textContent = formatCurrency(s.avg);
+    const top = s.topCategory ? getCategory(s.topCategory) : null;
+    document.getElementById("statTopCategory").textContent = top ? top.label : "–";
+    document.getElementById("statTopCategoryAmount").textContent = s.topCategory ? formatCurrency(s.topAmount) : "$0.00";
+  }
+
+  function renderCategoryBreakdown(rows) {
+    const s = computeSummary(rows);
+    document.getElementById("categorySubtitle").textContent = `${formatCurrency(s.total)} spent this month`;
+
+    const entries = Object.entries(s.byCategory).sort((a, b) => b[1] - a[1]);
+    const donut = document.getElementById("donutChart");
+    const center = document.getElementById("donutCenter");
+    const topLabel = document.getElementById("donutTopLabel");
+    center.textContent = s.total ? "$" + Math.round(s.total).toLocaleString() : "$0";
+
+    if (!entries.length) {
+      donut.style.background = "conic-gradient(#e5eeff 0deg 360deg)";
+      topLabel.textContent = "–";
+    } else {
+      let acc = 0;
+      const stops = entries.map(([catId, amt], idx) => {
+        const start = (acc / s.total) * 360;
+        acc += amt;
+        const end = (acc / s.total) * 360;
+        return `${DONUT_COLORS[idx % DONUT_COLORS.length]} ${start}deg ${end}deg`;
+      });
+      donut.style.background = `conic-gradient(${stops.join(",")})`;
+      topLabel.textContent = getCategory(entries[0][0]).label + ` (${Math.round((entries[0][1] / s.total) * 100)}%)`;
+    }
+
+    const list = document.getElementById("categoryList");
+    if (!entries.length) {
+      list.innerHTML = `<p class="font-body-sm text-body-sm text-on-surface-variant">No expenses logged yet this month.</p>`;
+      return;
+    }
+    list.innerHTML = entries
+      .map(([catId, amt]) => {
+        const cat = getCategory(catId);
+        const pct = s.total ? Math.round((amt / s.total) * 100) : 0;
+        return `
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center justify-between text-body-sm">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full ${cat.dotBg}"></span>
+                <span class="font-title-md text-body-md text-on-surface">${cat.label}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-financial-mono-md text-body-md text-on-surface">${formatCurrency(amt)}</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">${pct}%</span>
+              </div>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+              <div class="h-full ${cat.dotBg} rounded-full" style="width:${pct}%;"></div>
+            </div>
+          </div>`;
+      })
+      .join("");
+  }
+
+  function renderRecentActivity(rows) {
+    const body = document.getElementById("recentActivityBody");
+    const empty = document.getElementById("recentActivityEmpty");
+    const top = rows.slice(0, 8);
+    if (!top.length) {
+      body.innerHTML = "";
+      empty.classList.remove("hidden");
+      return;
+    }
+    empty.classList.add("hidden");
+    body.innerHTML = top
+      .map((t) => {
+        const cat = getCategory(t.category);
+        return `
+        <tr class="hover:bg-surface-container-low/60 transition-colors">
+          <td class="py-3.5 px-space-md">
+            <div class="flex items-center gap-space-xs">
+              <div class="w-9 h-9 rounded-xl ${cat.chipBg} ${cat.chipText} flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px]">${cat.icon}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-title-md text-body-md text-on-surface flex items-center gap-1">
+                  ${escapeHtml(t.merchant || cat.label)}
+                  ${t.recurring ? '<span class="material-symbols-outlined text-[14px] text-on-surface-variant" title="Recurring">autorenew</span>' : ""}
+                  ${t.status === "pending" ? '<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm">Pending</span>' : ""}
+                </span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">${cat.label}${t.note ? " · " + escapeHtml(t.note) : ""}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-3.5 px-space-md font-body-sm text-body-sm text-on-surface-variant">${formatDateShort(t.date)}</td>
+          <td class="py-3.5 px-space-md text-right font-financial-mono-md text-financial-mono-md text-on-surface font-semibold">-${formatCurrency(t.amount)}</td>
+          <td class="py-3.5 px-space-md text-right">
+            <button data-delete-id="${t.id}" aria-label="Delete" class="p-1 text-on-surface-variant hover:text-error transition-colors" type="button">
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </button>
+          </td>
+        </tr>`;
+      })
+      .join("");
+
+    body.querySelectorAll("[data-delete-id]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Delete this expense?")) return;
+        await deleteTransaction(currentUid, btn.dataset.deleteId);
+      });
+    });
+  }
+
+  function renderTrend(rows, monthKeys) {
+    const totals = {};
+    monthKeys.forEach((k) => (totals[k] = 0));
+    rows.forEach((t) => {
+      totals[t.monthKey] = (totals[t.monthKey] || 0) + (Number(t.amount) || 0);
+    });
+    const max = Math.max(1, ...Object.values(totals));
+    const chart = document.getElementById("trendChart");
+    // keep the 4 gridlines, drop previous bars
+    chart.querySelectorAll(".trend-bar-col").forEach((el) => el.remove());
+
+    monthKeys.forEach((k) => {
+      const amt = totals[k] || 0;
+      const pct = Math.max(4, Math.round((amt / max) * 100));
+      const isCurrent = k === monthKeyOf(new Date());
+      const col = document.createElement("div");
+      col.className = "trend-bar-col flex-1 flex flex-col items-center gap-2 h-full justify-end z-10";
+      col.innerHTML = `
+        <span class="font-label-sm text-label-sm ${isCurrent ? "text-primary font-bold" : "text-on-surface-variant"}">${formatCurrency(amt)}</span>
+        <div class="w-full flex items-end justify-center h-44">
+          <div class="w-8 sm:w-12 ${isCurrent ? "bg-primary" : "bg-primary/40"} rounded-t transition-all" style="height:${pct}%;"></div>
+        </div>
+        <span class="font-label-sm text-label-sm ${isCurrent ? "text-primary font-bold" : "text-on-surface-variant"}">${monthLabelOf(k).split(" ")[0]}</span>
+      `;
+      chart.appendChild(col);
+    });
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+</body>
+</html>
