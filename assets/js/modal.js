@@ -91,7 +91,10 @@ export function initAddExpenseModal(uid, { onAdded } = {}) {
       return;
     }
 
-    const submitBtn = form.querySelector("[data-submit-expense]");
+    // The submit button lives outside the <form> element (associated via the
+    // HTML `form="addExpenseForm"` attribute), so it must be looked up from
+    // the document rather than as a descendant of `form`.
+    const submitBtn = document.querySelector('[data-submit-expense][form="' + form.id + '"]');
     submitBtn.disabled = true;
     submitBtn.classList.add("opacity-60");
     try {
@@ -154,4 +157,3 @@ function selectStatus(status, statusBtns) {
     btn.classList.toggle("text-on-surface-variant", !isSelected);
   });
 }
-
