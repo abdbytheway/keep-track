@@ -23,6 +23,7 @@ transactions.html    Full expense ledger
 settings.html         Account + data controls
 assets/js/            All app logic (ES modules)
 firestore.rules       Firestore security rules (per-user data isolation)
+firestore.indexes.json Required Firestore composite index definitions
 ```
 
 ## Firebase setup
@@ -31,9 +32,10 @@ firestore.rules       Firestore security rules (per-user data isolation)
 2. **Authentication → Sign-in method** → enable **Google**.
 3. **Firestore Database** → create a database (production mode is fine — the rules below lock it down).
 4. Firestore → **Rules** → paste in the contents of `firestore.rules` from this repo → Publish.
-5. **Project settings → General → Your apps** → add a **Web app** → copy the `firebaseConfig` object.
-6. Paste those values into `assets/js/firebase-config.js` in this repo.
-7. In Authentication → Settings → **Authorized domains**, add your GitHub Pages domain (e.g. `<username>.github.io`) so sign-in works once deployed.
+5. Firestore → **Indexes** → **Add index** → collection `transactions`, fields `monthKey` (Ascending) then `date` (Descending) → Create. (Matches `firestore.indexes.json` in this repo.) The dashboard and transaction ledger queries by month and sorts by date, so this composite index is required — without it, Firestore throws a `failed-precondition` error and the dashboard silently shows no data.
+6. **Project settings → General → Your apps** → add a **Web app** → copy the `firebaseConfig` object.
+7. Paste those values into `assets/js/firebase-config.js` in this repo.
+8. In Authentication → Settings → **Authorized domains**, add your GitHub Pages domain (e.g. `<username>.github.io`) so sign-in works once deployed.
 
 ## Deploying to GitHub Pages
 
